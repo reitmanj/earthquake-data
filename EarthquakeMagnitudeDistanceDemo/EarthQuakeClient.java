@@ -87,4 +87,44 @@ public class EarthQuakeClient {
         }
 
     }
+    
+    /*
+     * Write the method filterByDepth that has three parameters, an ArrayList of type QuakeEntry named quakeData, a double named minDepth and a
+     * double named maxDepth. This method should return an ArrayList of type QuakeEntry of all the earthquakes from quakeData whose depth is 
+     * between minDepth and maxDepth, exclusive. (Do not include quakes with depth exactly minDepth or maxDepth.)
+     */
+    public ArrayList<QuakeEntry> filterByDepth(ArrayList<QuakeEntry> quakeData, double minDepth, double maxDepth) {
+        
+        ArrayList<QuakeEntry> answer = new ArrayList<QuakeEntry>();
+        
+        for ( QuakeEntry qe : quakeData) {
+            if(qe.getDepth() > minDepth && qe.getDepth() < maxDepth) {
+                answer.add(qe);   
+            }
+        }
+        
+        return answer;   
+    }
+    
+    /*Write the void method quakesOfDepth that has no parameters to use filterByDepth and print all the earthquakes from a data source whose
+     *depth is between a given minimum and maximum value. You should also print out the number of earthquakes found. After writing this method,
+     *when you run your program on the file nov20quakedatasmall.atom for quakes with depth between -10000.0 and -5000.0 you should find five
+     *such quakes on the output.
+    */
+    public void quakesOfDepth() {
+       ArrayList<QuakeEntry> printOut = new ArrayList<QuakeEntry>();
+       EarthQuakeParser parser = new EarthQuakeParser();
+       String source = "data/nov20quakedatasmall.atom";
+       //String source = "http://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_week.atom";
+       ArrayList<QuakeEntry> list = parser.read(source);
+       
+       printOut = filterByDepth(list, -10000.0, -5000.0);
+       
+       System.out.println("Read data for " + list.size() + " quakes.");
+       System.out.println("Find quakes with depth between -10000.0 and -5000.0");
+       for (QuakeEntry qe : printOut) {
+           System.out.println(qe.toString());
+       }
+       System.out.println("Found " + printOut.size() + " quakes that match that criteria");
+    }
 }
