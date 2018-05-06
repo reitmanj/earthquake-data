@@ -127,4 +127,49 @@ public class EarthQuakeClient {
        }
        System.out.println("Found " + printOut.size() + " quakes that match that criteria");
     }
+    
+    /*Write the method filterByPhrase that has three parameters, an ArrayList of type QuakeEntry named quakeData, a String named where that 
+     *indicates where to search in the title and has one of three values: (“start”, ”end”, or “any”), and a String named phrase, indicating 
+     *the phrase to search for in the title of the earthquake. The title of the earthquake can be obtained through the getInfo() method. The 
+     *filterByPhrase method should return an ArrayList of type QuakeEntry of all the earthquakes from quakeData whose titles have the given 
+     *phrase found at location where (“start” means the phrase must start the title, “end” means the phrase must end the title and “any” means 
+     *the phrase is a substring anywhere in the title.)
+     */
+    
+    public ArrayList<QuakeEntry> filterByPhrase(ArrayList<QuakeEntry> quakeData, String search, String phrase) {
+        ArrayList<QuakeEntry> byPhrase = new ArrayList<QuakeEntry>();
+        
+        for(QuakeEntry qe : quakeData) {
+            String qePhrase = qe.getInfo().toLowerCase();
+            
+            if(search == "start" && qePhrase.startsWith(phrase.toLowerCase())) {
+                byPhrase.add(qe);
+            } else if (search == "end" && qePhrase.endsWith(phrase.toLowerCase())) {
+                byPhrase.add(qe);
+            } else if (search == "any" && qePhrase.indexOf(phrase.toLowerCase()) > -1) {
+                byPhrase.add(qe);
+            }
+        }
+        
+        return byPhrase;
+    }
+    
+    public void quakesByPhrase() {
+       ArrayList<QuakeEntry> printOut = new ArrayList<QuakeEntry>();
+       EarthQuakeParser parser = new EarthQuakeParser();
+       String source = "data/nov20quakedatasmall.atom";
+       //String source = "http://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_week.atom";
+       ArrayList<QuakeEntry> list = parser.read(source);
+       
+       String search = "any";
+       String filter = "Can";
+       printOut = filterByPhrase(list, search, filter);
+       
+       System.out.println("Read data for " + list.size() + " quakes.");
+       System.out.println("Find " + search + " with " + filter + " in title");
+       for (QuakeEntry qe : printOut) {
+           System.out.println(qe.toString());
+       }
+       System.out.println("Found " + printOut.size() + " quakes that match that criteria");
+    }
 }

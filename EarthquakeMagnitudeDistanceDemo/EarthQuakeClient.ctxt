@@ -2,6 +2,8 @@
 comment0.target=EarthQuakeClient
 comment1.params=quakeData\ magMin
 comment1.target=java.util.ArrayList\ filterByMagnitude(java.util.ArrayList,\ double)
+comment10.params=
+comment10.target=void\ quakesByPhrase()
 comment2.params=quakeData\ distMax\ from
 comment2.target=java.util.ArrayList\ filterByDistanceFrom(java.util.ArrayList,\ double,\ Location)
 comment3.params=list
@@ -18,4 +20,7 @@ comment7.text=\n\ Write\ the\ method\ filterByDepth\ that\ has\ three\ parameter
 comment8.params=
 comment8.target=void\ quakesOfDepth()
 comment8.text=Write\ the\ void\ method\ quakesOfDepth\ that\ has\ no\ parameters\ to\ use\ filterByDepth\ and\ print\ all\ the\ earthquakes\ from\ a\ data\ source\ whose\ndepth\ is\ between\ a\ given\ minimum\ and\ maximum\ value.\ You\ should\ also\ print\ out\ the\ number\ of\ earthquakes\ found.\ After\ writing\ this\ method,\nwhen\ you\ run\ your\ program\ on\ the\ file\ nov20quakedatasmall.atom\ for\ quakes\ with\ depth\ between\ -10000.0\ and\ -5000.0\ you\ should\ find\ five\nsuch\ quakes\ on\ the\ output.\n
-numComments=9
+comment9.params=quakeData\ search\ phrase
+comment9.target=java.util.ArrayList\ filterByPhrase(java.util.ArrayList,\ java.lang.String,\ java.lang.String)
+comment9.text=Write\ the\ method\ filterByPhrase\ that\ has\ three\ parameters,\ an\ ArrayList\ of\ type\ QuakeEntry\ named\ quakeData,\ a\ String\ named\ where\ that\ \nindicates\ where\ to\ search\ in\ the\ title\ and\ has\ one\ of\ three\ values\:\ (\u201Cstart\u201D,\ \u201Dend\u201D,\ or\ \u201Cany\u201D),\ and\ a\ String\ named\ phrase,\ indicating\ \nthe\ phrase\ to\ search\ for\ in\ the\ title\ of\ the\ earthquake.\ The\ title\ of\ the\ earthquake\ can\ be\ obtained\ through\ the\ getInfo()\ method.\ The\ \nfilterByPhrase\ method\ should\ return\ an\ ArrayList\ of\ type\ QuakeEntry\ of\ all\ the\ earthquakes\ from\ quakeData\ whose\ titles\ have\ the\ given\ \nphrase\ found\ at\ location\ where\ (\u201Cstart\u201D\ means\ the\ phrase\ must\ start\ the\ title,\ \u201Cend\u201D\ means\ the\ phrase\ must\ end\ the\ title\ and\ \u201Cany\u201D\ means\ \nthe\ phrase\ is\ a\ substring\ anywhere\ in\ the\ title.)\n
+numComments=11
