@@ -138,16 +138,28 @@ public class EarthQuakeClient {
     
     public ArrayList<QuakeEntry> filterByPhrase(ArrayList<QuakeEntry> quakeData, String search, String phrase) {
         ArrayList<QuakeEntry> byPhrase = new ArrayList<QuakeEntry>();
+        phrase = phrase.toLowerCase();
         
         for(QuakeEntry qe : quakeData) {
             String qePhrase = qe.getInfo().toLowerCase();
             
-            if(search == "start" && qePhrase.startsWith(phrase.toLowerCase())) {
-                byPhrase.add(qe);
-            } else if (search == "end" && qePhrase.endsWith(phrase.toLowerCase())) {
-                byPhrase.add(qe);
-            } else if (search == "any" && qePhrase.indexOf(phrase.toLowerCase()) > -1) {
-                byPhrase.add(qe);
+            boolean condition;
+            final String start = "start";
+            final String end = "end";
+            final String any = "any";
+            
+            switch (search) {
+                case start:
+                  condition = qePhrase.startsWith(phrase);
+                break;
+                case end:
+                  condition = qePhrase.endsWith(phrase);
+                break;
+                default:
+                  condition = qePhrase.contains(phrase);
+            }
+               if (condition) {
+                  byPhrase.add(qe);
             }
         }
         
