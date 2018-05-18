@@ -114,17 +114,17 @@ public class EarthQuakeClient {
     public void quakesOfDepth() {
        ArrayList<QuakeEntry> printOut = new ArrayList<QuakeEntry>();
        EarthQuakeParser parser = new EarthQuakeParser();
-       String source = "data/nov20quakedatasmall.atom";
+       String source = "data/nov20quakedata.atom";
        //String source = "http://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_week.atom";
        ArrayList<QuakeEntry> list = parser.read(source);
        
-       printOut = filterByDepth(list, -10000.0, -5000.0);
+       printOut = filterByDepth(list, -8000.0, -5000.0);
        
        System.out.println("Read data for " + list.size() + " quakes.");
-       System.out.println("Find quakes with depth between -10000.0 and -5000.0");
-       for (QuakeEntry qe : printOut) {
-           System.out.println(qe.toString());
-       }
+       System.out.println("Find quakes with depth between -8000.0 and -5000.0");
+       // for (QuakeEntry qe : printOut) {
+           // System.out.println(qe.toString());
+       // }
        System.out.println("Found " + printOut.size() + " quakes that match that criteria");
     }
     
@@ -169,19 +169,19 @@ public class EarthQuakeClient {
     public void quakesByPhrase() {
        ArrayList<QuakeEntry> printOut = new ArrayList<QuakeEntry>();
        EarthQuakeParser parser = new EarthQuakeParser();
-       String source = "data/nov20quakedatasmall.atom";
+       String source = "data/nov20quakedata.atom";
        //String source = "http://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_week.atom";
        ArrayList<QuakeEntry> list = parser.read(source);
        
        String search = "any";
-       String filter = "Can";
+       String filter = "Creek";
        printOut = filterByPhrase(list, search, filter);
        
        System.out.println("Read data for " + list.size() + " quakes.");
        System.out.println("Find " + search + " with " + filter + " in title");
-       for (QuakeEntry qe : printOut) {
-           System.out.println(qe.toString());
-       }
+       // for (QuakeEntry qe : printOut) {
+           // System.out.println(qe.toString());
+       // }
        System.out.println("Found " + printOut.size() + " quakes that match that criteria");
     }
 }

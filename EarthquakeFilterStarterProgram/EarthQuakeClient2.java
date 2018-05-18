@@ -7,6 +7,7 @@ public class EarthQuakeClient2 {
     }
 
     public ArrayList<QuakeEntry> filter(ArrayList<QuakeEntry> quakeData, Filter f) { 
+        
         ArrayList<QuakeEntry> answer = new ArrayList<QuakeEntry>();
         for(QuakeEntry qe : quakeData) { 
             if (f.satisfies(qe)) { 
@@ -18,15 +19,23 @@ public class EarthQuakeClient2 {
     } 
 
     public void quakesWithFilter() { 
+        // 10,000,000 meters (10,000 km) from Tokyo, Japan whose location is (35.42, 139.43), and that are in Japan (this means "Japan" 
+        //should be the last word in the title) (35.42, 139.43)
         EarthQuakeParser parser = new EarthQuakeParser(); 
         //String source = "http://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_week.atom";
         String source = "data/nov20quakedatasmall.atom";
         ArrayList<QuakeEntry> list  = parser.read(source);         
         System.out.println("read data for "+list.size()+" quakes");
 
-        Filter f = new MinMagFilter(4.0); 
-        ArrayList<QuakeEntry> m7  = filter(list, f); 
-        for (QuakeEntry qe: m7) { 
+        // Filter mag = new MagnitudeFilter(4.0, 5.0);
+        // Filter depth = new DepthFilter(-35000.0, -12000.0);
+        // ArrayList<QuakeEntry> byMag  = filter(list, mag);
+        // ArrayList<QuakeEntry> byDepthAndMag = filter(byMag, depth);
+        Filter distanceFrom = new DistanceFilter(10000000, "Japan");
+        ArrayList<QuakeEntry> dis = filter(list, distanceFrom);
+        
+        
+        for (QuakeEntry qe: dis) { 
             System.out.println(qe);
         } 
     }
