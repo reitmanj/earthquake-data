@@ -1,7 +1,0 @@
-#BlueJ class context
-comment0.target=PhraseFilter
-comment1.params=location\ phrase
-comment1.target=PhraseFilter(java.lang.String,\ java.lang.String)
-comment2.params=qe
-comment2.target=boolean\ satisfies(QuakeEntry)
-numComments=3

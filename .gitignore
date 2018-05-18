@@ -1,1 +1,4 @@
 *.atom
+*.class
+*.ctxt
+*.bluej
