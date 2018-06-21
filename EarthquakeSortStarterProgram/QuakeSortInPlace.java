@@ -35,6 +35,29 @@ public class QuakeSortInPlace {
         }
         
     }
+    
+    public int getLargestDepth(ArrayList<QuakeEntry> quakes, int from) {
+        int maxIdx = from;
+        
+        for (int i = from + 1; i < quakes.size(); i++) {
+            if (quakes.get(i).getDepth() > quakes.get(maxIdx).getDepth()) {
+                maxIdx = i;
+            }
+        }
+        
+        return maxIdx;
+    }
+    
+    public void sortByLargestDepth(ArrayList<QuakeEntry> in) {
+        for (int i = 0; i < in.size(); i++) {
+            int maxIdx = getLargestDepth(in, i);
+            QuakeEntry qi = in.get(i);
+            QuakeEntry qmax = in.get(maxIdx);
+            in.set(i, qmax);
+            in.set(maxIdx, qi);
+            
+        }
+    }
 
     public void testSort() {
         EarthQuakeParser parser = new EarthQuakeParser(); 
@@ -44,7 +67,8 @@ public class QuakeSortInPlace {
         ArrayList<QuakeEntry> list  = parser.read(source);  
        
         System.out.println("read data for "+list.size()+" quakes");    
-        sortByMagnitude(list);
+        //sortByMagnitude(list);
+        sortByLargestDepth(list);
         for (QuakeEntry qe: list) { 
             System.out.println(qe);
         } 
