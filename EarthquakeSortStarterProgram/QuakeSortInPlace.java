@@ -58,6 +58,32 @@ public class QuakeSortInPlace {
             
         }
     }
+    
+    public int onePassBubbleSort(ArrayList<QuakeEntry> quakeData) {
+        
+        int numSorted = 0;
+        for (int idx = 0; idx < quakeData.size() - 1; idx++) {
+            if(quakeData.get(idx).getMagnitude() > quakeData.get(idx + 1).getMagnitude()) {
+                QuakeEntry qLow = quakeData.get(idx);
+                QuakeEntry qHigh = quakeData.get(idx + 1);
+                quakeData.set(idx, qHigh);
+                quakeData.set(idx + 1, qLow);
+                numSorted += 1;
+            }
+        }
+        System.out.println("Number of index shifts this pass: " + numSorted);
+        return numSorted;
+    }
+    
+    public void sortByMagnitudeWithBubbleSort(ArrayList<QuakeEntry> in) {
+        int numSorts = in.size();
+        for (int i = 0; i < numSorts - 1; i++) {
+            int numSorted = onePassBubbleSort(in);  
+            if (numSorted == 0) {
+                break;
+            }
+        }
+    }
 
     public void testSort() {
         EarthQuakeParser parser = new EarthQuakeParser(); 
@@ -68,7 +94,8 @@ public class QuakeSortInPlace {
        
         System.out.println("read data for "+list.size()+" quakes");    
         //sortByMagnitude(list);
-        sortByLargestDepth(list);
+        //sortByLargestDepth(list);
+        sortByMagnitudeWithBubbleSort(list);
         for (QuakeEntry qe: list) { 
             System.out.println(qe);
         } 
