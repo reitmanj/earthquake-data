@@ -16,17 +16,24 @@ public class QuakeSortInPlace {
    
     public int getSmallestMagnitude(ArrayList<QuakeEntry> quakes, int from) {
         int minIdx = from;
-        for (int i=from+1; i< quakes.size(); i++) {
+        int count = 1;
+        
+        
+        for (int i = from + 1; i < quakes.size(); i++) {
             if (quakes.get(i).getMagnitude() < quakes.get(minIdx).getMagnitude()) {
+                
                 minIdx = i;
+                
             }
+            
         }
+        
         return minIdx;
     }
     
     public void sortByMagnitude(ArrayList<QuakeEntry> in) {
        
-       for (int i=0; i< in.size(); i++) {
+       for (int i=0; i < in.size(); i++) {
             int minIdx = getSmallestMagnitude(in,i);
             QuakeEntry qi = in.get(i);
             QuakeEntry qmin = in.get(minIdx);
@@ -34,6 +41,27 @@ public class QuakeSortInPlace {
             in.set(minIdx,qi);
         }
         
+    }
+    
+    public void sortByMagnitudeWithCheck(ArrayList<QuakeEntry> in) {
+        int numChecks = 0;
+        
+        for (int i=0; i < in.size(); i++) {
+            
+            if (checkInSortedOrder(in)) {
+                break;   
+            }
+            numChecks += 1;
+            int minIdx = getSmallestMagnitude(in,i);
+            
+            QuakeEntry qi = in.get(i);
+            QuakeEntry qmin = in.get(minIdx);
+            in.set(i,qmin);
+            in.set(minIdx,qi);
+            
+            
+        } 
+        System.out.println("Number of checks = " + numChecks);
     }
     
     public int getLargestDepth(ArrayList<QuakeEntry> quakes, int from) {
@@ -49,7 +77,7 @@ public class QuakeSortInPlace {
     }
     
     public void sortByLargestDepth(ArrayList<QuakeEntry> in) {
-        for (int i = 0; i < in.size(); i++) {
+        for (int i = 0; i < 70; i++) {
             int maxIdx = getLargestDepth(in, i);
             QuakeEntry qi = in.get(i);
             QuakeEntry qmax = in.get(maxIdx);
@@ -71,31 +99,57 @@ public class QuakeSortInPlace {
                 numSorted += 1;
             }
         }
-        System.out.println("Number of index shifts this pass: " + numSorted);
+        
         return numSorted;
     }
     
     public void sortByMagnitudeWithBubbleSort(ArrayList<QuakeEntry> in) {
+        
         int numSorts = in.size();
+        int numberOfPasses = 0;
         for (int i = 0; i < numSorts - 1; i++) {
-            int numSorted = onePassBubbleSort(in);  
+            
+            int numSorted = onePassBubbleSort(in);
+            
             if (numSorted == 0) {
                 break;
             }
+            numberOfPasses += 1;
+            
         }
+        
+        System.out.println("Number of passes: " + numberOfPasses);
+    }
+    
+    public boolean checkInSortedOrder(ArrayList<QuakeEntry> quakes) {
+     
+        for (int idx = 0; idx < quakes.size() - 1; idx++) {
+            if(quakes.get(idx).getMagnitude() > quakes.get(idx + 1).getMagnitude()) {
+                return false;
+            }
+        }
+        
+        return true;
+        
     }
 
     public void testSort() {
         EarthQuakeParser parser = new EarthQuakeParser(); 
         //String source = "http://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_week.atom";
-        String source = "data/nov20quakedatasmall.atom";
+        String source = "data/earthQuakeDataDec6sample1.atom";
         //String source = "data/nov20quakedata.atom";
         ArrayList<QuakeEntry> list  = parser.read(source);  
        
-        System.out.println("read data for "+list.size()+" quakes");    
-        //sortByMagnitude(list);
+        System.out.println("read data for "+list.size()+" quakes");
+        
+        //sortByMagnitudeWithCheck(list);
         //sortByLargestDepth(list);
+        // if (checkInSortedOrder(list)) {
+            // System.out.println("Already sorted by magnitude");
+        // } else {
         sortByMagnitudeWithBubbleSort(list);
+        // }
+        
         for (QuakeEntry qe: list) { 
             System.out.println(qe);
         } 
