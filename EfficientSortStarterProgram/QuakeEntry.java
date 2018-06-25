@@ -31,7 +31,14 @@ public class QuakeEntry implements Comparable<QuakeEntry>{
 
 	@Override
 	public int compareTo(QuakeEntry loc) {
-	    return Double.compare(magnitude, loc.getMagnitude());
+	    if ( magnitude == loc.getMagnitude() ) {
+	        return Double.compare(depth, loc.getDepth());
+	    } else {
+	        return Double.compare(magnitude, loc.getMagnitude());
+	    }
+	    //return title.compareTo(loc.getInfo());
+	    //return Double.compare(magnitude, loc.getMagnitude());
+	    
 	    // Here is another way to sort by Magnitude
 	    /*
 	    if (magnitude < loc.getMagnitude()){
